@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -27,7 +28,18 @@ public class WebSocketChatServer {
     private static Map<String, Session> onlineSessions = new ConcurrentHashMap<>();
 
     private static void sendMessageToAll(String msg) {
-        //TODO: add send message method.
+        for (Map.Entry<String, Session> entry: onlineSessions.entrySet()) {
+            try {
+                entry.getValue().getBasicRemote().sendObject(
+                        new Message(
+                                "user",
+                                msg,
+                                "SPEAK",
+                                Integer.toString(onlineSessions.size())));
+            } catch (IOException | EncodeException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -45,7 +57,7 @@ public class WebSocketChatServer {
      */
     @OnMessage
     public void onMessage(Session session, String jsonStr) {
-        //TODO: add send message.
+        sendMessageToAll(jsonStr);
     }
 
     /**
@@ -53,7 +65,6 @@ public class WebSocketChatServer {
      */
     @OnClose
     public void onClose(Session session) {
-        //TODO: add close connection.
         if (onlineSessions.containsKey(session.toString())) {
             onlineSessions.remove(session.toString());
         }
