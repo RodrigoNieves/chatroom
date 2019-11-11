@@ -32,7 +32,9 @@ public class WebSocketChatServer {
      */
     @OnOpen
     public void onOpen(Session session) {
-        //TODO: add on open connection.
+        onlineSessions.put(
+                session.getRequestParameterMap().get("username").get(0),
+                session);
     }
 
     /**
