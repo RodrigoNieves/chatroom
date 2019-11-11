@@ -16,7 +16,7 @@ public class MessageEncoder implements Encoder.Text<Message> {
     public String encode(Message message) throws EncodeException {
         return Json.createObjectBuilder()
                 .add("username", message.getUsername())
-                .add("message", message.getMessage())
+                .add("msg", message.getMessage())
                 .add("type", message.getType())
                 .add("onlineCount", message.getOnlineCount())
                 .build().toString();
