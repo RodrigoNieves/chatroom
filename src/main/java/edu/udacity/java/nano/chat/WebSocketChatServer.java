@@ -28,6 +28,7 @@ public class WebSocketChatServer {
     private static Map<String, Session> onlineSessions = new ConcurrentHashMap<>();
 
     private static void sendMessageToAll(String msg) {
+        // Example Json string {"username":"Rodrigo","msg":"Sip di"}
         for (Map.Entry<String, Session> entry: onlineSessions.entrySet()) {
             try {
                 logger.info(entry.getValue().toString());
