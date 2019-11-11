@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @ServerEndpoint(value = "/chat", encoders={MessageEncoder.class})
 public class WebSocketChatServer {
 
-    Logger logger = LoggerFactory.getLogger(WebSocketChatServer.class);
+    private static Logger logger = LoggerFactory.getLogger(WebSocketChatServer.class);
     /**
      * All chat sessions.
      */
@@ -30,6 +30,8 @@ public class WebSocketChatServer {
     private static void sendMessageToAll(String msg) {
         for (Map.Entry<String, Session> entry: onlineSessions.entrySet()) {
             try {
+                logger.info(entry.getValue().toString());
+                logger.info(entry.getValue().getUserProperties().toString());
                 entry.getValue().getBasicRemote().sendObject(
                         new Message(
                                 "user",
