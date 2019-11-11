@@ -1,5 +1,7 @@
 package edu.udacity.java.nano.chat;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -18,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @ServerEndpoint("/chat")
 public class WebSocketChatServer {
 
+    Logger logger = LoggerFactory.getLogger(WebSocketChatServer.class);
     /**
      * All chat sessions.
      */
@@ -33,7 +36,7 @@ public class WebSocketChatServer {
     @OnOpen
     public void onOpen(Session session) {
         onlineSessions.put(
-                session.getRequestParameterMap().get("username").get(0),
+                session.toString(),
                 session);
     }
 
@@ -51,6 +54,9 @@ public class WebSocketChatServer {
     @OnClose
     public void onClose(Session session) {
         //TODO: add close connection.
+        if (onlineSessions.containsKey(session.toString())) {
+            onlineSessions.remove(session.toString());
+        }
     }
 
     /**
