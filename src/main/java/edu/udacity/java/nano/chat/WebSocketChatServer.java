@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 @Component
-@ServerEndpoint("/chat")
+@ServerEndpoint(value = "/chat", encoders={MessageEncoder.class})
 public class WebSocketChatServer {
 
     Logger logger = LoggerFactory.getLogger(WebSocketChatServer.class);
