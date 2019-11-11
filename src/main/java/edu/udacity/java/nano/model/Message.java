@@ -1,13 +1,13 @@
 package edu.udacity.java.nano.model;
 
-public class User {
+public class Message {
     private String username;
     private String message;
     private String type;
 
-    public User() {}
+    public Message() {}
 
-    public User(String username, String type, String message) {
+    public Message(String username, String type, String message) {
         this.username = username;
         this.type = type;
         this.message = message;
