@@ -4,6 +4,7 @@ public class Message {
     private String username;
     private String message;
     private String type;
+    private String onlineCount;
 
     public Message() {}
 
@@ -34,5 +35,13 @@ public class Message {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getOnlineCount() {
+        return onlineCount;
+    }
+
+    public void setOnlineCount(String onlineCount) {
+        this.onlineCount = onlineCount;
     }
 }
