@@ -1,5 +1,6 @@
 package edu.udacity.java.nano.chat;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -27,15 +28,14 @@ public class WebSocketChatServer {
      */
     private static Map<String, Session> onlineSessions = new ConcurrentHashMap<>();
 
-    private static void sendMessageToAll(String msg) {
-        // Example Json string {"username":"Rodrigo","msg":"Sip di"}
+    private static void sendMessageToAll(String username, String msg) {
         for (Map.Entry<String, Session> entry: onlineSessions.entrySet()) {
             try {
                 logger.info(entry.getValue().toString());
                 logger.info(entry.getValue().getUserProperties().toString());
                 entry.getValue().getBasicRemote().sendObject(
                         new Message(
-                                "user",
+                                username,
                                 msg,
                                 "SPEAK",
                                 Integer.toString(onlineSessions.size())));
@@ -60,7 +60,14 @@ public class WebSocketChatServer {
      */
     @OnMessage
     public void onMessage(Session session, String jsonStr) {
-        sendMessageToAll(jsonStr);
+        try {
+            JSONObject jsonObject = new JSONObject(jsonStr);
+            String username = jsonObject.getString("username");
+            String msg = jsonObject.getString("msg");
+            sendMessageToAll(username, msg);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
     }
 
     /**
