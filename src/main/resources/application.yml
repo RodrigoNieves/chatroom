@@ -1,11 +1,4 @@
 spring:
   thymeleaf:
     cache: false
-debug:
-  true
-logging:
-  level:
-    root:
-      DEBUG
-  file:
-    /var/tmp/mylog.log
+
