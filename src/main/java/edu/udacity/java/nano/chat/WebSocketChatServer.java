@@ -74,9 +74,9 @@ public class WebSocketChatServer {
      */
     @OnClose
     public void onClose(Session session) {
-        String username =session.getRequestParameterMap().get("username").get(0);
+        String username = session.getRequestParameterMap().get("username").get(0);
         if (onlineSessions.containsKey(username)) {
-            onlineSessions.remove(session.toString());
+            onlineSessions.remove(username);
         }
     }
 
