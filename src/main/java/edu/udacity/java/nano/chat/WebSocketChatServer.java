@@ -50,9 +50,8 @@ public class WebSocketChatServer {
      */
     @OnOpen
     public void onOpen(Session session) {
-        onlineSessions.put(
-                session.toString(),
-                session);
+        String username = session.getRequestParameterMap().get("username").get(0);
+        onlineSessions.put(username, session);
     }
 
     /**
@@ -75,7 +74,8 @@ public class WebSocketChatServer {
      */
     @OnClose
     public void onClose(Session session) {
-        if (onlineSessions.containsKey(session.toString())) {
+        String username =session.getRequestParameterMap().get("username").get(0);
+        if (onlineSessions.containsKey(username)) {
             onlineSessions.remove(session.toString());
         }
     }

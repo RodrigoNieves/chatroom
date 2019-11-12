@@ -33,7 +33,7 @@ public class WebSocketChatApplication {
         // TODO Add and return user name
         ModelAndView model = new ModelAndView("/chat");
         model.addObject("username", username);
-        model.addObject("webSocketUrl","ws://localhost:8080/chat");
+        model.addObject("webSocketUrl","ws://localhost:8080/chat?username=" + username);
         return model;
     }
 }
