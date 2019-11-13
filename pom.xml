@@ -6,7 +6,6 @@
     <groupId>edu.udacity.java.nano</groupId>
     <artifactId>chatroom-starter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
 
     <name>Chatroom</name>
     <description>Spring Boot Chatroom</description>
