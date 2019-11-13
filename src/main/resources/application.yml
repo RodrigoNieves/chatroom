@@ -1,4 +1,7 @@
 spring:
   thymeleaf:
-    cache: true
+    suffix: .html
+    cache: false
+    template-loader-path: classpath:/template
+
 
