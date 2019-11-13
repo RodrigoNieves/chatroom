@@ -27,6 +27,11 @@ public class WebSocketChatApplicationTest {
                 .andExpect(view().name("login"));
     }
 
-    // The other tests should go in hear.....
-
+    @Test
+    public void userJoin() throws Exception{
+        this.mockMvc.perform(
+                get("/index?username=Rodrigo"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(view().name("chat"));
+    }
 }
