@@ -1,8 +1,6 @@
 package edu.udacity.java.nano.chat;
 
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -21,8 +19,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @ServerEndpoint(value = "/chat", encoders={MessageEncoder.class})
 public class WebSocketChatServer {
-
-    private static Logger logger = LoggerFactory.getLogger(WebSocketChatServer.class);
     /**
      * All chat sessions.
      */
@@ -31,8 +27,6 @@ public class WebSocketChatServer {
     private static void sendMessageToAll(String username, String msg) {
         for (Map.Entry<String, Session> entry: onlineSessions.entrySet()) {
             try {
-                logger.info(entry.getValue().toString());
-                logger.info(entry.getValue().getUserProperties().toString());
                 entry.getValue().getBasicRemote().sendObject(
                         new Message(
                                 username,
@@ -65,7 +59,7 @@ public class WebSocketChatServer {
             String msg = jsonObject.getString("msg");
             sendMessageToAll(username, msg);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
         }
     }
 

@@ -30,7 +30,6 @@ public class WebSocketChatApplication {
      */
     @GetMapping("/index")
     public ModelAndView index(String username, HttpServletRequest request) throws UnknownHostException {
-        // TODO Add and return user name
         ModelAndView model = new ModelAndView("chat");
         model.addObject("username", username);
         model.addObject("webSocketUrl","ws://localhost:8080/chat?username=" + username);
